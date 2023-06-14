@@ -1,0 +1,15 @@
+#!/usr/sbin/nft -f
+table inet filter {
+    chain input {
+        type filter hook input priority 0;
+        
+        # Allow all loopback traffic
+        iif lo accept
+        
+        # Allow incoming packets from the director's IP
+        ip saddr 10.0.2.10 accept
+        
+        # Drop all other incoming packets
+        drop
+    }
+}
